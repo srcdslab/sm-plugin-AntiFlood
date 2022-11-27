@@ -14,7 +14,7 @@ public Plugin myinfo =
 	name = "AntiFlood",
 	author = "BotoX, maxime1907",
 	description = "Kicks anyone that floods the server with commands",
-	version = "1.1",
+	version = "1.1.0",
 	url = ""
 };
 
