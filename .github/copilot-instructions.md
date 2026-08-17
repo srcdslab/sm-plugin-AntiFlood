@@ -7,7 +7,7 @@ This repository contains the **AntiFlood** SourceMod plugin - a lightweight anti
 - **Language**: SourcePawn (SourceMod scripting language)
 - **Plugin Type**: Anti-cheat/Server protection
 - **Target**: Source engine game servers (CS:GO, CS2, TF2, etc.)
-- **Build System**: SourceKnight (modern SourceMod build tool)
+- **Build System**: Native GitHub Actions (spcomp via rumblefrog/setup-sp)
 - **CI/CD**: GitHub Actions with automatic releases
 
 ## Project Structure
@@ -16,27 +16,23 @@ addons/sourcemod/scripting/
 ├── AntiFlood.sp              # Main plugin source code
 .github/
 ├── workflows/ci.yml          # CI/CD pipeline
-sourceknight.yaml             # Build configuration
 ```
 
 ## Development Environment Setup
 
 ### Prerequisites
-- SourceMod 1.11.0+ (defined in sourceknight.yaml)
-- SourceKnight build system
+- SourceMod 1.12.x (defined in .github/workflows/ci.yml)
+- SourcePawn compiler (spcomp), installed via rumblefrog/setup-sp in CI
 - Linux/Windows development environment
 
 ### Build Process
-This project uses **SourceKnight** instead of traditional spcomp compilation:
+This project compiles directly with **spcomp** (no external build tool):
 
 ```bash
-# Install SourceKnight (if not available)
-pip install sourceknight
+# From addons/sourcemod/scripting
+spcomp -o ../plugins/AntiFlood.smx AntiFlood.sp
 
-# Build the plugin
-sourceknight build
-
-# Output will be in .sourceknight/package/addons/sourcemod/plugins/AntiFlood.smx
+# Output will be in addons/sourcemod/plugins/AntiFlood.smx
 ```
 
 ### Testing
@@ -124,7 +120,7 @@ This plugin uses simple arrays and doesn't require complex memory management:
 ## Deployment
 
 ### Manual Deployment
-1. Compile plugin with SourceKnight
+1. Compile plugin with spcomp
 2. Copy `AntiFlood.smx` to server's `addons/sourcemod/plugins/`
 3. Reload plugins with `sm plugins reload AntiFlood` or restart server
 
